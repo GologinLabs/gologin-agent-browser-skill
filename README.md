@@ -42,7 +42,7 @@ It is built for:
 - semantic `find` flows
 - screenshots, PDFs, uploads, and session inspection
 
-It does not cover scraping-only SDK integration. For that, use `gologin-webunlocker-skill`.
+It does not cover scraping-only SDK integration. For that, use `gologin-scraping-skill`.
 
 ## Capabilities
 

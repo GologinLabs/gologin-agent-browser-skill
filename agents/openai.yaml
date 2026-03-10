@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gologin Agent Browser"
+  short_description: "Cloud browser automation with Gologin"
+  default_prompt: "Use $gologin-agent-browser-skill to open browser sessions, capture snapshots, and automate websites through Gologin Cloud Browser."

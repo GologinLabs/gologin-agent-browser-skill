@@ -1,0 +1,99 @@
+{
+  "name": "gologin-agent-browser-skill",
+  "description": "Browser automation with Gologin Cloud Browser and the gologin-agent-browser CLI",
+  "package": "gologin-agent-browser-cli",
+  "cli": "gologin-agent-browser",
+  "skill_repository": "https://github.com/GologinLabs/gologin-agent-browser-skill",
+  "repository": "https://github.com/GologinLabs/agent-browser",
+  "keywords": [
+    "gologin",
+    "agent browser",
+    "browser automation",
+    "cloud browser",
+    "interactive browsing",
+    "snapshot",
+    "ref-based interaction",
+    "semantic find",
+    "browser sessions",
+    "screenshots",
+    "pdf",
+    "uploads"
+  ],
+  "tool_groups": [
+    "browser",
+    "artifacts",
+    "sessions"
+  ],
+  "tools": [
+    {
+      "name": "agent_browser_open",
+      "group": "browser",
+      "surface": "gologin-agent-browser open"
+    },
+    {
+      "name": "agent_browser_snapshot",
+      "group": "browser",
+      "surface": "gologin-agent-browser snapshot"
+    },
+    {
+      "name": "agent_browser_click",
+      "group": "browser",
+      "surface": "gologin-agent-browser click"
+    },
+    {
+      "name": "agent_browser_type",
+      "group": "browser",
+      "surface": "gologin-agent-browser type"
+    },
+    {
+      "name": "agent_browser_fill",
+      "group": "browser",
+      "surface": "gologin-agent-browser fill"
+    },
+    {
+      "name": "agent_browser_find",
+      "group": "browser",
+      "surface": "gologin-agent-browser find"
+    },
+    {
+      "name": "agent_browser_get",
+      "group": "browser",
+      "surface": "gologin-agent-browser get"
+    },
+    {
+      "name": "agent_browser_wait",
+      "group": "browser",
+      "surface": "gologin-agent-browser wait"
+    },
+    {
+      "name": "agent_browser_upload",
+      "group": "artifacts",
+      "surface": "gologin-agent-browser upload"
+    },
+    {
+      "name": "agent_browser_pdf",
+      "group": "artifacts",
+      "surface": "gologin-agent-browser pdf"
+    },
+    {
+      "name": "agent_browser_screenshot",
+      "group": "artifacts",
+      "surface": "gologin-agent-browser screenshot"
+    },
+    {
+      "name": "agent_browser_close",
+      "group": "sessions",
+      "surface": "gologin-agent-browser close"
+    },
+    {
+      "name": "agent_browser_sessions",
+      "group": "sessions",
+      "surface": "gologin-agent-browser sessions"
+    },
+    {
+      "name": "agent_browser_current",
+      "group": "sessions",
+      "surface": "gologin-agent-browser current"
+    }
+  ]
+}

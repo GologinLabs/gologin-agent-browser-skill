@@ -5,12 +5,18 @@
 Install the skill with:
 
 ```bash
-npx skills add GologinLabs/gologin-agent-browser-skill@gologin-agent-browser-skill
+npx skills add GologinLabs/gologin-agent-browser-skill
 ```
 
 Standalone repo:
 
 - [GologinLabs/gologin-agent-browser-skill](https://github.com/GologinLabs/gologin-agent-browser-skill)
+
+Monorepo install:
+
+```bash
+npx skills add GologinLabs/agent-skills@gologin-agent-browser-skill
+```
 
 ## Required CLI
 
@@ -41,15 +47,22 @@ It is built for:
 - clicking, typing, filling, selecting, and waiting
 - semantic `find` flows
 - screenshots, PDFs, uploads, and session inspection
+- daemon diagnostics with `doctor`
+- tabs, cookies, storage export/import, and JavaScript eval
+- browser history actions like `back`, `forward`, and `reload`
 
 It does not cover scraping-only SDK integration. For that, use `gologin-scraping-skill`.
 
 ## Capabilities
 
+- Diagnostics with `doctor`
 - Browser sessions with `open`, `sessions`, and `current`
 - Snapshot-driven interaction with `snapshot`, `click`, `type`, and `fill`
 - Semantic actions with `find`
 - Readback helpers with `get`
+- Tab control with `tabs`, `tabopen`, `tabfocus`, and `tabclose`
+- Cookie and storage helpers with `cookies`, `cookies-import`, `storage-export`, `storage-import`, and `eval`
+- History helpers with `back`, `forward`, and `reload`
 - Upload, screenshot, and PDF artifact generation
 - Daemon-backed persistence across commands
 
@@ -73,6 +86,8 @@ Optional environment variables:
 gologin-agent-browser open https://example.com
 gologin-agent-browser snapshot -i
 gologin-agent-browser click @e3
+gologin-agent-browser tabs
+gologin-agent-browser cookies --json
 gologin-agent-browser close
 ```
 

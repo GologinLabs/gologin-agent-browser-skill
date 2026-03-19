@@ -1,4 +1,4 @@
 interface:
   display_name: "Gologin Agent Browser"
-  short_description: "Cloud browser automation with Gologin"
-  default_prompt: "Use $gologin-agent-browser-skill to open browser sessions, capture snapshots, and automate websites through Gologin Cloud Browser."
+  short_description: "Cloud-browser-first automation with Gologin"
+  default_prompt: "Use $gologin-agent-browser-skill when the task is primarily a live Gologin Cloud Browser session: login, dashboard work, repeated clicks and typing, screenshots, PDFs, uploads, or cloud-session hygiene. Prefer $gologin-web-access-skill instead for read/extract/map/crawl/monitor tasks on known sites, and prefer $gologin-local-agent-browser-skill instead for local Orbita profiles, warmup, persistent sessions, or repeated rendered-DOM navigation on this machine."

@@ -52,6 +52,7 @@ It is built for:
 - browser history actions like `back`, `forward`, and `reload`
 
 It does not cover scraping-only SDK integration. For that, use `gologin-scraping-skill`.
+It is also not the best default for scrape-first reading, extraction, mapping, or crawling on a known site. For those tasks, prefer `gologin-web-access-skill`. If the work depends on a local Orbita profile or persistent local session reuse, prefer `gologin-local-agent-browser-skill`.
 
 ## Capabilities
 
@@ -99,6 +100,12 @@ Use this skill when:
 - the agent must click, type, or navigate
 - the task should follow the snapshot -> ref -> action model
 - uploads, screenshots, or PDFs are required
+- the task is primarily a live cloud-browser login, dashboard, or session-hygiene flow
+
+Use another GoLogin skill when:
+
+- the task is mostly reading, scraping, mapping, crawling, or structured extraction on a known site -> `gologin-web-access-skill`
+- the task depends on a local Orbita profile, persistent cookies, warmup, or repeated SPA navigation -> `gologin-local-agent-browser-skill`
 
 ## References
 

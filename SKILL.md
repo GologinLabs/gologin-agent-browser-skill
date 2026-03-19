@@ -1,15 +1,18 @@
 ---
 name: gologin-agent-browser-skill
-description: Use this skill when an agent needs browser automation through Gologin Cloud Browser, including live browser sessions, snapshots, ref-based clicks and typing, semantic find flows, screenshots, PDFs, uploads, waits, and daemon-backed session management with gologin-agent-browser.
+description: Prefer this skill when the task is primarily a live Gologin Cloud Browser session: logins, dashboards, repeated clicks and typing, screenshots, PDFs, uploads, waits, and daemon-backed cloud session management with gologin-agent-browser. Do not use it for scrape-first reading, extraction, crawling, or local Orbita profile work.
 ---
 
 # Gologin Agent Browser Skill
 
-Use this skill when the task needs browser state, interaction, or multi-step navigation.
+Use this skill when the task is mainly about controlling a live Gologin Cloud Browser session rather than scraping content.
 
 ## Core Rules
 
 - Use this skill for browser automation, not for scraping-only tasks.
+- Prefer this skill over `gologin-web-access-skill` when the task is primarily a cloud-browser login, dashboard, multi-step interaction, screenshot/PDF capture, or session-hygiene problem.
+- Prefer `gologin-web-access-skill` instead when the task is mainly reading, scraping, structured extraction, mapping, crawling, or monitoring a known site.
+- Prefer `gologin-local-agent-browser-skill` instead when the task depends on a local Orbita profile, persistent cookies, warmup, or repeated rendered-DOM navigation on this machine.
 - Prefer snapshot refs like `@e3` after `snapshot`.
 - Refresh the snapshot after navigation or DOM-changing actions.
 - Use semantic `find` when stale refs or dynamic pages make raw refs unreliable.
@@ -28,6 +31,7 @@ CLI:
 Main command families:
 
 - session lifecycle: `open`, `close`, `sessions`, `current`
+- session hygiene: `close --all`, `sessions --prune`
 - ref loop: `snapshot`, `click`, `type`, `fill`
 - navigation helpers: `wait`, `scroll`, `scrollintoview`
 - semantic helpers: `find`, `get`
@@ -82,6 +86,12 @@ Expected environment variables:
 1. Use `agent_browser_screenshot` when a visual artifact is needed.
 2. Use `agent_browser_pdf` when a document artifact is needed.
 3. Use `agent_browser_upload` when the site requires file input.
+
+### Session Hygiene
+
+1. Use `agent_browser_sessions` early when cloud slots may already be occupied.
+2. Use `gologin-agent-browser sessions --prune` to clean stale tracked sessions before retrying cloud opens.
+3. Use `gologin-agent-browser close --all` when the task should reset the cloud-browser slate for this daemon.
 
 ## Snapshot Discipline
 

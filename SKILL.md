@@ -10,13 +10,19 @@ Use this skill when the task is mainly about controlling a live Gologin Cloud Br
 ## Core Rules
 
 - Use this skill for browser automation, not for scraping-only tasks.
+- If the user explicitly asks for `gologin-agent-browser`, a cloud browser, or a live browser session, stay inside this skill unless the requirement clearly changes or cloud capacity is unavailable.
 - Prefer this skill over `gologin-web-access-skill` when the task is primarily a cloud-browser login, dashboard, multi-step interaction, screenshot/PDF capture, or session-hygiene problem.
 - Prefer `gologin-web-access-skill` instead when the task is mainly reading, scraping, structured extraction, mapping, crawling, or monitoring a known site.
 - Prefer `gologin-local-agent-browser-skill` instead when the task depends on a local Orbita profile, persistent cookies, warmup, or repeated rendered-DOM navigation on this machine.
+- Before opening anything, decide whether the job should use an existing cloud profile or a temporary cloud session.
+- For temporary cloud sessions, the proxy choices are: no proxy, a custom proxy host/port, or an existing preconfigured cloud profile. Do not invent free proxies and do not assume GoLogin country traffic is available without a real profile.
+- Temporary cloud sessions use GoLogin backend defaults for browser line and viewport. If the user needs explicit browser version, country proxy, or screen settings, prefer an existing `--profile`.
 - Prefer snapshot refs like `@e3` after `snapshot`.
 - Refresh the snapshot after navigation or DOM-changing actions.
 - Use semantic `find` when stale refs or dynamic pages make raw refs unreliable.
 - Keep browser session work inside the `gologin-agent-browser` CLI model.
+- Use explicit `--session` ids for independent parallel flows instead of serializing unrelated work.
+- End the task with `close`, `close --all`, or `sessions --prune` when cloud slots need to be freed.
 
 ## CLI Surface
 
@@ -92,6 +98,14 @@ Expected environment variables:
 1. Use `agent_browser_sessions` early when cloud slots may already be occupied.
 2. Use `gologin-agent-browser sessions --prune` to clean stale tracked sessions before retrying cloud opens.
 3. Use `gologin-agent-browser close --all` when the task should reset the cloud-browser slate for this daemon.
+
+### Parallel Flow
+
+1. Assign explicit session ids such as `s1`, `s2`, and `s3` when two or more cloud pages can run independently.
+2. Inspect the slate first with `agent_browser_sessions`.
+3. Open each task with its own `--session` value.
+4. Snapshot and act inside each session independently.
+5. Close each session when it is no longer needed, or use `close --all` to reset the current daemon.
 
 ## Snapshot Discipline
 

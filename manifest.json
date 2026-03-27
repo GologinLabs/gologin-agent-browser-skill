@@ -1,6 +1,6 @@
 {
   "name": "gologin-agent-browser-skill",
-  "description": "Cloud-browser-first automation with Gologin for live sessions, logins, dashboards, repeated interaction, screenshots, PDFs, and session hygiene. Prefer this over scrape-first skills only when the task is primarily a live cloud-browser workflow.",
+  "description": "Cloud-browser-first automation with Gologin for live sessions, logins, dashboards, repeated interaction, screenshots, PDFs, parallel cloud sessions, and session hygiene. Prefer this only when the task is primarily a live cloud-browser workflow, not scrape-first reading or local Orbita work.",
   "package": "gologin-agent-browser-cli",
   "cli": "gologin-agent-browser",
   "skill_repository": "https://github.com/GologinLabs/gologin-agent-browser-skill",

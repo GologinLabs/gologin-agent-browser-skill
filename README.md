@@ -40,6 +40,14 @@ CLI repo:
 
 Gologin Agent Browser Skill is a browser-only skill for AI agents that need live browser sessions, ref-based interaction, semantic find flows, and artifact capture through Gologin Cloud Browser.
 
+## TL;DR
+
+- Use this skill only for live cloud-browser work: login, dashboard interaction, screenshots, uploads, PDFs, tabs, cookies, storage, and session cleanup.
+- Do not drift into `gologin-web-access` for scrape-first reading/extraction tasks, and do not drift into `gologin-local-agent-browser` unless the task truly requires a local Orbita profile.
+- For temporary cloud sessions, do not invent free proxies and do not assume `--proxy-country` works. Use an existing cloud `--profile` when country traffic, browser version, or viewport must be explicit.
+- Use explicit `--session` ids for parallel cloud sessions.
+- End by cleaning up with `close`, `close --all`, or `sessions --prune`.
+
 It is built for:
 
 - opening live cloud browser sessions
@@ -92,6 +100,15 @@ gologin-agent-browser cookies --json
 gologin-agent-browser close
 ```
 
+Parallel pattern:
+
+```bash
+gologin-agent-browser open https://example.com --session s1
+gologin-agent-browser open https://example.org --session s2
+gologin-agent-browser sessions
+gologin-agent-browser close --all
+```
+
 ## When To Use This Skill
 
 Use this skill when:
@@ -105,7 +122,7 @@ Use this skill when:
 Use another GoLogin skill when:
 
 - the task is mostly reading, scraping, mapping, crawling, or structured extraction on a known site -> `gologin-web-access-skill`
-- the task depends on a local Orbita profile, persistent cookies, warmup, or repeated SPA navigation -> `gologin-local-agent-browser-skill`
+- the task depends on a local Orbita profile, persistent cookies, profile preparation, or repeated SPA navigation -> `gologin-local-agent-browser-skill`
 
 ## References
 

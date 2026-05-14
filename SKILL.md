@@ -1,20 +1,22 @@
 ---
 name: gologin-agent-browser-skill
-description: Prefer this skill when the task is primarily a live Gologin Cloud Browser session: logins, dashboards, repeated clicks and typing, screenshots, PDFs, uploads, waits, and daemon-backed cloud session management with gologin-agent-browser. Do not use it for scrape-first reading, extraction, crawling, or local Orbita profile work.
+description: Prefer this skill when the task is primarily a live GoLogin browser session through either Cloud Browser or local Orbita: logins, dashboards, warmup, repeated clicks and typing, screenshots, PDFs, uploads, waits, and daemon-backed session management with gologin-agent-browser. Do not use it for scrape-first reading, extraction, or crawling.
 ---
 
 # Gologin Agent Browser Skill
 
-Use this skill when the task is mainly about controlling a live Gologin Cloud Browser session rather than scraping content.
+Use this skill when the task is mainly about controlling a live GoLogin browser session rather than scraping content. The public CLI is one product with two runtimes: `cloud` and `local`.
 
 ## Core Rules
 
 - Use this skill for browser automation, not for scraping-only tasks.
-- If the user explicitly asks for `gologin-agent-browser`, a cloud browser, or a live browser session, stay inside this skill unless the requirement clearly changes or cloud capacity is unavailable.
+- If the user explicitly asks for `gologin-agent-browser`, a cloud browser, a local Orbita profile, warmup, or a live browser session, stay inside this skill unless the requirement clearly changes.
 - Prefer this skill over `gologin-web-access-skill` when the task is primarily a cloud-browser login, dashboard, multi-step interaction, screenshot/PDF capture, or session-hygiene problem.
 - Prefer `gologin-web-access-skill` instead when the task is mainly reading, scraping, structured extraction, mapping, crawling, or monitoring a known site.
-- Prefer `gologin-local-agent-browser-skill` instead when the task depends on a local Orbita profile, persistent cookies, warmup, or repeated rendered-DOM navigation on this machine.
-- Before opening anything, decide whether the job should use an existing cloud profile or a temporary cloud session.
+- Use `--runtime local` when the task depends on a local Orbita profile, persistent cookies, warmup, native OS alignment, or repeated rendered-DOM navigation on this machine.
+- Use `--runtime cloud` or the default cloud runtime for remote browser sessions, cloud parallelism, and workflows that should not run local Orbita.
+- The old `gologin-local-agent-browser-cli` package is deprecated. The `gologin-local-agent-browser` binary is now a compatibility alias from `gologin-agent-browser-cli@0.3.0+`.
+- Before opening anything, decide whether the job should use an existing cloud profile, an existing local profile, or a temporary cloud session.
 - For temporary cloud sessions, the proxy choices are: no proxy, a custom proxy host/port, or an existing preconfigured cloud profile. Do not invent free proxies and do not assume GoLogin country traffic is available without a real profile.
 - Temporary cloud sessions use GoLogin backend defaults for browser line and viewport. If the user needs explicit browser version, country proxy, or screen settings, prefer an existing `--profile`.
 - Prefer snapshot refs like `@e3` after `snapshot`.
@@ -33,6 +35,7 @@ Package:
 CLI:
 
 - `gologin-agent-browser`
+- `gologin-local-agent-browser` compatibility alias
 
 Main command families:
 
@@ -42,6 +45,8 @@ Main command families:
 - navigation helpers: `wait`, `scroll`, `scrollintoview`
 - semantic helpers: `find`, `get`
 - artifact helpers: `screenshot`, `pdf`, `upload`
+- runtime selection: `--runtime cloud`, `--runtime local`, `--local`, `--cloud`
+- local profile helpers: `profiles`, `profile`, `profile-create`, `profile-update`, `profile-import`, `profile-sync`, `profile-delete`, `run`, `batch`, `jobs`, `job`
 
 ## Setup
 
@@ -51,6 +56,8 @@ Expected environment variables:
 - `GOLOGIN_PROFILE_ID` optional
 - `GOLOGIN_DAEMON_PORT` optional
 - `GOLOGIN_CONNECT_BASE` optional
+- `GOLOGIN_AGENT_BROWSER_RUNTIME` optional (`cloud`, `local`, or `auto`)
+- `GOLOGIN_EXECUTABLE_PATH` optional for local Orbita runtime
 
 ## Tool Map
 
@@ -106,6 +113,14 @@ Expected environment variables:
 3. Open each task with its own `--session` value.
 4. Snapshot and act inside each session independently.
 5. Close each session when it is no longer needed, or use `close --all` to reset the current daemon.
+
+### Local Runtime Flow
+
+1. Use `gologin-agent-browser --runtime local doctor --json` when local startup is unclear.
+2. Use `gologin-agent-browser --runtime local profiles --remote --json` when the user wants an existing profile.
+3. Use `gologin-agent-browser --runtime local profile-create ...` when a new local-profile workflow is needed.
+4. Use `gologin-agent-browser --runtime local open <url> --profile <id>` for local Orbita sessions.
+5. Keep follow-up actions in the same runtime with `--runtime local`, or use the compatibility alias `gologin-local-agent-browser`.
 
 ## Snapshot Discipline
 
